@@ -32,6 +32,30 @@
             return results[1] || 0;
           }
       }
+function getGreetingTime (m) {
+  var g = null; //return g
+  
+  if(!m || !m.isValid()) { return; } //if we can't find a valid or filled moment, we return.
+  
+  var split_afternoon = 11 //24hr time to split the afternoon
+  var split_evening = 17 //24hr time to split the evening
+  var currentHour = parseFloat(m.format("HH"));
+  
+  if(currentHour >= split_afternoon && currentHour <= split_evening) {
+    g = "afternoon";
+  } else if(currentHour >= split_evening) {
+    g = "evening";
+  } else {
+    g = "morning";
+  }
+  
+  return g;
+}
+
+ // USE
+    //The var "humanizedGreeting" below will equal (assuming the time is 8pm) "Good evening, James."
+    
+    var timeOfDay = getGreetingTime(moment());
 
 
       function load() {
@@ -51,12 +75,12 @@
 
         if(weekdays.includes(day)) { //Check if today is a week day
           
-          if(time > '6:30:00 am' && time < '11:00:00am') {//If its morning, show our breakfast playlist
+          if(timeOfDay == 'morning') {//If its morning, show our breakfast playlist
             
             var urls = [  
                         'https://m58cafe.calvarychatt.com/index.php/weekday-breakfast'
                         ];
-            } else if (time > '11:00:00 am') {  //If lunch time, show that
+            } else if (timeOfDay == 'afternoon' || timeOfDay == 'evening') {  //If lunch time, show that
             
             var urls = [  
                       'https://m58cafe.calvarychatt.com/index.php/14-2',
@@ -67,12 +91,12 @@
 
         if(weekends.includes(day)) { //Check if today is a weekend
           
-          if(time > '6:30:00 am' && time < '11:00:00am') {//If its morning, show our breakfast playlist
+          if(timeOfDay == 'morning') {//If its morning, show our breakfast playlist
             
             var urls = [  
                         'https://m58cafe.calvarychatt.com/index.php/weekend-breakfast'
                         ];
-            } else if (time > '11:00:00 am') {  //If lunch time, show that
+            } else if (timeOfDay == 'afternoon' || timeOfDay == 'evening') {  //If lunch time, show that
             
             var urls = [  
                       'https://m58cafe.calvarychatt.com/index.php/14-2',
