@@ -76,12 +76,14 @@ function getGreetingTime (m) {
         if(weekdays.includes(day)) { //Check if today is a week day
           
           if(timeOfDay == 'morning') {//If its morning, show our breakfast playlist
-            
+            var delaySec = [20000];
+
             var urls = [  
                         'https://m58cafe.calvarychatt.com/index.php/weekday-breakfast'
                         ];
             } else if (timeOfDay == 'afternoon' || timeOfDay == 'evening') {  //If lunch time, show that
-            
+            var delaySec = [18];
+
             var urls = [  
                       'https://m58cafe.calvarychatt.com/index.php/14-2',
                       'https://m58cafe.calvarychatt.com/index.php/featured-specials'
@@ -92,12 +94,13 @@ function getGreetingTime (m) {
         if(weekends.includes(day)) { //Check if today is a weekend
           
           if(timeOfDay == 'morning') {//If its morning, show our breakfast playlist
-            
+            var delaySec = [20000];
             var urls = [  
                         'https://m58cafe.calvarychatt.com/index.php/weekend-breakfast'
                         ];
             } else if (timeOfDay == 'afternoon' || timeOfDay == 'evening') {  //If lunch time, show that
-            
+            var delaySec = [18];
+
             var urls = [  
                       'https://m58cafe.calvarychatt.com/index.php/14-2',
                       'https://m58cafe.calvarychatt.com/index.php/featured-specials'
@@ -108,12 +111,8 @@ function getGreetingTime (m) {
 
         if($.urlParam('delay')) { //If a delay is passed into the query string set it here
           var delaySec = [$.urlParam('delay')]
-        } else {
-        
-        //Set a default delay if none specified
-        var delaySec = [18];
-
         }
+
         var pos = 0;
         var lastID = -1;
 
